@@ -11,8 +11,9 @@
     <button *ngIf="role === 'admin'" (click)="viewProfileList()">
         Xem Danh sách Hồ sơ
     </button>
+
     <button *ngIf="role === 'user' || role === 'admin'" (click)="onViewProfile()">
-        Xem Hồ sơ 1
+        Xem Hồ sơ
     </button>
     <!-- Popup Hồ sơ -->
     <div class="popup-overlay" *ngIf="showPopup" (click)="togglePopup()">
@@ -27,6 +28,7 @@
     </div>
     <!-- Nút xem danh sách hồ sơ -->
     <!-- Hiển thị component con khi showProfile = true -->
-    <app-view-profile-component *ngIf="showProfile" [username]="username" [role]="role" [name]="name" [address]="address">
+    <app-view-profile-component *ngIf="showProfile" [username]="username" [role]="role" [name]="name"
+        [address]="address">
     </app-view-profile-component>
 </div>

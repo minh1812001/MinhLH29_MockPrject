@@ -1,0 +1,46 @@
+.profile-container {
+  max-width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.profile-container p {
+  margin: 10px 0;
+}
+
+.profile-container label {
+  display: block;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.profile-container input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.profile-container button {
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile-container button:hover {
+  background-color: #0056b3;
+}
+
+.profile-container button[type="button"]:last-child {
+  background-color: #dc3545;
+}
+
+.profile-container button[type="button"]:last-child:hover {
+  background-color: #c82333;
+}
