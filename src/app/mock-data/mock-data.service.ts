@@ -5,8 +5,20 @@ import { Injectable } from '@angular/core';
 })
 export class MockDataService {
   private users = [
-    { username: 'admin', password: 'admin123', role: 'admin' },
-    { username: 'user', password: 'user123', role: 'user' },
+    {
+      username: 'admin',
+      password: 'admin123',
+      role: 'admin',
+      name: 'Admin',
+      address: '123 Main St',
+    },
+    {
+      username: 'user',
+      password: 'user123',
+      role: 'user',
+      name: 'user',
+      address: '123 Main St',
+    },
   ];
 
   getUsers() {

@@ -1,4 +1,32 @@
 <div class="dashboard">
-  <h2>Chào mừng, {{ username }}!</h2>
-  <p>Bạn đã đăng nhập thành công.</p>
+    <h2>Chào mừng, {{ username }}!</h2>
+    <p>Bạn đã đăng nhập thành công.</p>
+
+    <!-- Nút xem hồ sơ cá nhân -->
+    <button *ngIf="role === 'user' || role === 'admin'" (click)="togglePopup()">
+        {{ showPopup ? 'Ẩn Hồ sơ' : 'Xem Hồ sơ' }}
+    </button>
+
+    <!-- Nút xem danh sách hồ sơ -->
+    <button *ngIf="role === 'admin'" (click)="viewProfileList()">
+        Xem Danh sách Hồ sơ
+    </button>
+    <button *ngIf="role === 'user' || role === 'admin'" (click)="onViewProfile()">
+        Xem Hồ sơ 1
+    </button>
+    <!-- Popup Hồ sơ -->
+    <div class="popup-overlay" *ngIf="showPopup" (click)="togglePopup()">
+        <div class="popup-content" (click)="stopPropagation($event)">
+            <h3>Hồ Sơ Của Bạn</h3>
+            <p><strong>Tên đăng nhập:</strong> {{ username }}</p>
+            <p><strong>Vai trò:</strong> {{ role }}</p>
+            <p><strong>Tên:</strong> {{ name }}</p>
+            <p><strong>Địa chỉ:</strong> {{ address }}</p>
+            <button (click)="togglePopup()">Đóng</button>
+        </div>
+    </div>
+    <!-- Nút xem danh sách hồ sơ -->
+    <!-- Hiển thị component con khi showProfile = true -->
+    <app-view-profile-component *ngIf="showProfile" [username]="username" [role]="role" [name]="name" [address]="address">
+    </app-view-profile-component>
 </div>

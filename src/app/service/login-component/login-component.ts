@@ -29,17 +29,20 @@ export class LoginComponent {
 
     if (user) {
       const permissions = this.mockDataService.getPermissions(user.role);
-      localStorage.setItem(
-        'currentUser',
-        JSON.stringify({
-          username: user.username,
-          role: user.role,
-          permissions,
-        })
-      );
+      const userData = {
+        username: user.username,
+        role: user.role,
+        permissions,
+        name: user.name,
+        address: user.address,
+      };
+      localStorage.setItem('currentUser', JSON.stringify(userData));
       this.router.navigate(['/dashboard']);
     } else {
       this.errorMessage = 'Invalid credentials';
     }
+  }
+  onRegister() {
+    this.router.navigate(['/register']);
   }
 }

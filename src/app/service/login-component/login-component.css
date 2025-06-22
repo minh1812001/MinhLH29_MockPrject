@@ -1,32 +1,41 @@
 .login-container {
-    max-width: 300px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  max-width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
-
 label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
 }
-
 input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
 }
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
-
-button:hover {
-    background-color: #0056b3;
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+.register-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.register-button:hover {
+  background-color: #218838;
 }
