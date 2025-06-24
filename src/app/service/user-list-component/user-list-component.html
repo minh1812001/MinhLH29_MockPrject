@@ -1,0 +1,26 @@
+<div class="form-container">
+  <h2>Danh Sách Người Dùng</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Tên đăng nhập</th>
+        <th>Vai trò</th>
+        <th>Họ và tên</th>
+        <th>Địa chỉ</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" (click)="selectUser(user)" [class.selected]="user === selectedUser">
+        <td>{{ user.username }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.address }}</td>
+        <td>
+          <button (click)="removeUser(user, $event)" class="cancel-button">Xóa</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="goBack()">Quay lại</button>
+</div>

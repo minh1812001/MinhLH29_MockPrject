@@ -1,0 +1,58 @@
+.form-container {
+  max-width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.form-container input,
+.form-container select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+}
+
+.form-container button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background-color: #0056b3;
+}
+
+.form-container .cancel-button {
+  background-color: #dc3545;
+}
+
+.form-container .cancel-button:hover {
+  background-color: #c82333;
+}
+
+.form-container .register-button {
+  background-color: #28a745;
+}
+
+.form-container .register-button:hover {
+  background-color: #218838;
+}
+
+.form-container .error-message {
+  color: red;
+  margin-top: 10px;
+}

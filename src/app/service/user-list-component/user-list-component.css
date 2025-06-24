@@ -1,0 +1,51 @@
+.form-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.form-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.form-container th,
+.form-container td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.form-container th {
+  background-color: #f4f4f4;
+}
+
+.form-container tr.selected {
+  background-color: #e9ecef;
+}
+
+.form-container button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background-color: #0056b3;
+}
+
+.form-container .cancel-button {
+  background-color: #dc3545;
+}
+
+.form-container .cancel-button:hover {
+  background-color: #c82333;
+}

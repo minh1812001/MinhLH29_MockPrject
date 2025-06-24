@@ -1,30 +1,30 @@
-<div class="register-container">
-    <h2>Đăng Ký</h2>
-    <form (ngSubmit)="onRegister()">
-        <div>
-            <label>Tên đăng nhập:</label>
-            <input [(ngModel)]="username" name="username" required>
-        </div>
-        <div>
-            <label>Mật khẩu:</label>
-            <input type="password" [(ngModel)]="password" name="password" required>
-        </div>
-        <div>
-            <label>Họ và tên:</label>
-            <input type="name" [(ngModel)]="name" name="name" required>
-        </div>
-        <div>
-            <label>Địa chỉ:</label>
-            <input type="address" [(ngModel)]="address" name="address" required>
-        </div>
-        <div>
-            <label>Vai trò:</label>
-            <select [(ngModel)]="role" name="role">
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-            </select>
-        </div>
-        <button type="submit">Đăng Ký</button>
-        <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
-    </form>
+<div class="form-container">
+  <h2>Đăng Ký</h2>
+  <form (ngSubmit)="onRegister()">
+    <div>
+      <label>Tên đăng nhập:</label>
+      <input [(ngModel)]="username" name="username" required>
+    </div>
+    <div>
+      <label>Mật khẩu:</label>
+      <input type="password" [(ngModel)]="password" name="password" required>
+    </div>
+    <div>
+      <label>Họ và tên:</label>
+      <input type="text" [(ngModel)]="name" name="name" required>
+    </div>
+    <div>
+      <label>Địa chỉ:</label>
+      <input type="text" [(ngModel)]="address" name="address" required>
+    </div>
+    <div>
+      <label>Vai trò:</label>
+      <select [(ngModel)]="role" name="role">
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
+    </div>
+    <button type="submit">Đăng Ký</button>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </form>
 </div>

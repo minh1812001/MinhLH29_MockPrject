@@ -1,9 +1,8 @@
-<div class="profile-container">
+<div class="form-container">
   <h2>Hồ Sơ Của Bạn</h2>
-
+  <p><strong>Tên đăng nhập:</strong> {{ username }}</p>
+  <p><strong>Vai trò:</strong> {{ role }}</p>
   <div *ngIf="!editMode; else editForm">
-    <p><strong>Tên đăng nhập:</strong> {{ username }}</p>
-    <p><strong>Vai trò:</strong> {{ role }}</p>
     <p><strong>Họ và tên:</strong> {{ name }}</p>
     <p><strong>Địa chỉ:</strong> {{ address }}</p>
     <button (click)="toggleEditMode()">Chỉnh sửa</button>
@@ -20,9 +19,9 @@
         <input [(ngModel)]="editedAddress" name="editedAddress" required>
       </div>
       <button type="submit">Lưu</button>
-      <button type="button" (click)="toggleEditMode()">Hủy</button>
+      <button type="button" (click)="toggleEditMode()" class="cancel-button">Hủy</button>
     </form>
   </ng-template>
 
-  <button (click)="goBack()">Quay lại</button>
+ <button (click)="goBack()">Quay lại</button>
 </div>
