@@ -35,12 +35,12 @@ export class UserListComponent implements OnInit {
   loadUsers() {
     const allUsers = this.mockDataService.getUsers();
     if (this.role === 'user') {
-      // Nếu là user, chỉ hiển thị thông tin của chính mình
-      // const currentUser = allUsers.find(
-      //   (user) => user.role === this.role
-      // );
-      // this.users = currentUser ? [currentUser] : [];
-      this.users = allUsers.filter((user) => user.role === this.role);
+     // Nếu là user, chỉ hiển thị thông tin của chính mình
+      const currentUser = allUsers.find(
+        (user) => user.role === this.role
+      );
+      this.users = currentUser ? [currentUser] : [];
+     // this.users = allUsers.filter((user) => user.role === this.role);
     } else if (this.role === 'admin') {
       // Nếu là admin, hiển thị tất cả người dùng
       this.users = [...allUsers];
@@ -53,17 +53,18 @@ export class UserListComponent implements OnInit {
 
   removeUser(user: any, event: Event) {
     event.stopPropagation();
-    if (user) {
-      // Kiểm tra nếu người dùng đang cố xóa chính mình
+    if (this.role !== 'admin') {
+      alert('Bạn không có quyền xóa người dùng!');
+      return;
+    }
+    if (user && confirm(`Bạn có chắc muốn xóa người dùng ${user.username}?`)) {
       if (user.username === this.currentUsername) {
         alert('Bạn không thể xóa chính mình!');
         return;
       }
-      if (confirm(`Bạn có chắc muốn xóa người dùng ${user.username}?`)) {
-        this.mockDataService.removeUser(user.username);
-        this.loadUsers();
-        this.selectedUser = null;
-      }
+      this.mockDataService.removeUser(user.username);
+      this.loadUsers();
+      this.selectedUser = null;
     }
   }
   goBack() {

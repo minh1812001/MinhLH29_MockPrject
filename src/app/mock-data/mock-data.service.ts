@@ -111,22 +111,29 @@ export class MockDataService {
       address: '1010 Street M',
     },
   ];
-
+  addUser(user: any) {
+    this.users.push(user); // Thêm người dùng vào mảng gốc
+    this.saveUsers(); // Lưu vào localStorage
+  }
+  saveUsers() {
+    localStorage.setItem('users', JSON.stringify(this.users)); // Lưu mảng users
+  }
   getUsers() {
     return [...this.users]; // Trả về bản sao để tránh thay đổi trực tiếp
   }
 
   getPermissions(role: string) {
     const permissions = {
-      admin: ['view', 'edit', 'delete'],
-      user: ['view'],
+      admin: ['view', 'edit_profile', 'delete', 'manage_users'],
+      user: ['view', 'edit_profile'],
     };
     return (permissions as any)[role] || [];
   }
   removeUser(username: string) {
-    const index = this.users.findIndex(user => user.username === username);
+    const index = this.users.findIndex((user) => user.username === username);
     if (index !== -1) {
       this.users.splice(index, 1); // Xóa người dùng khỏi mảng
+      this.saveUsers(); // Lưu thay đổi vào localStorage
     }
   }
 }

@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './register-component.css',
 })
 export class RegisterComponent {
-  username: string = '';
+username: string = '';
   password: string = '';
   role: string = 'user';
   name: string = '';
@@ -30,13 +30,17 @@ export class RegisterComponent {
       this.errorMessage = 'Tên đăng nhập đã tồn tại';
       return;
     }
-    users.push({
+
+    // Thêm người dùng mới vào MockDataService
+    this.mockDataService.addUser({
       username: this.username,
       password: this.password,
       name: this.name,
       address: this.address,
       role: this.role,
     });
+
+    console.log('Registered user:', this.username);
     this.router.navigate(['/login']);
   }
 }

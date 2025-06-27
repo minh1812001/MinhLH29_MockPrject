@@ -22,9 +22,18 @@ export class DashboardComponent {
   showProfile = false;
   showUserList = false;
   onViewProfileList() {
-        this.showUserList = !this.showUserList;
-// Mở danh sách người dùng
-    this.showProfile = false; // Đóng profile nếu đang mở
+    if (this.role === 'admin') {
+      this.showUserList = !this.showUserList;
+      this.showProfile = false;
+    }
+  }
+
+  onViewProfile() {
+    if (this.role === 'admin' || this.role === 'user') {
+      this.refreshData();
+      this.showUserList = false;
+      this.showProfile = !this.showProfile;
+    }
   }
 
   togglePopup() {
@@ -35,11 +44,6 @@ export class DashboardComponent {
     event.stopPropagation();
   }
 
-  onViewProfile() {
-    this.refreshData();
-    this.showUserList = false;
-    this.showProfile = !this.showProfile;
-  }
   refreshData() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
     this.username = currentUser.username || '';
@@ -49,9 +53,11 @@ export class DashboardComponent {
   }
 
   onProfileUpdated(updatedData: { name: string; address: string }) {
-    this.name = updatedData.name;
-    this.address = updatedData.address;
-    this.refreshData(); // Đảm bảo đồng bộ với localStorage
+    if (this.role === 'admin' || this.role === 'user') {
+      this.name = updatedData.name;
+      this.address = updatedData.address;
+      this.refreshData(); // Đảm bảo đồng bộ với localStorage
+    }
   }
   onCloseProfile() {
     this.showProfile = false; // Ẩn component khi nhận sự kiện đóng

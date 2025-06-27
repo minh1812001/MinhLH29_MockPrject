@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { MockDataService } from '../mock-data/mock-data.service';
 
 @Injectable({
@@ -11,10 +11,12 @@ export class PermissionGuard implements CanActivate {
     private router: Router
   ) {}
 
-  canActivate(): boolean {
+canActivate(route: ActivatedRouteSnapshot): boolean {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
     const permissions = currentUser.permissions || [];
-    if (permissions.includes('view')) {
+    const expectedPermission = route.data['permission']; // Define required permission in route
+
+    if (!expectedPermission || permissions.includes(expectedPermission)) {
       return true;
     }
     this.router.navigate(['/login']);
