@@ -111,6 +111,12 @@ export class MockDataService {
       address: '1010 Street M',
     },
   ];
+  private permissions: { [key: string]: string[] } = {
+    admin: ['view', 'edit_profile', 'delete', 'manage_users', 'manage_permissions'],
+    user: ['view', 'edit_profile'],
+  };
+
+  private availablePermissions = ['view', 'edit_profile', 'delete', 'manage_users', 'manage_permissions'];
   addUser(user: any) {
     this.users.push(user); // Thêm người dùng vào mảng gốc
     this.saveUsers(); // Lưu vào localStorage
@@ -123,11 +129,7 @@ export class MockDataService {
   }
 
   getPermissions(role: string) {
-    const permissions = {
-      admin: ['view', 'edit_profile', 'delete', 'manage_users'],
-      user: ['view', 'edit_profile'],
-    };
-    return (permissions as any)[role] || [];
+    return [...(this.permissions[role] || [])];
   }
   removeUser(username: string) {
     const index = this.users.findIndex((user) => user.username === username);
@@ -135,5 +137,48 @@ export class MockDataService {
       this.users.splice(index, 1); // Xóa người dùng khỏi mảng
       this.saveUsers(); // Lưu thay đổi vào localStorage
     }
+  }
+  updateUser(
+    username: string,
+    updatedData: { name: string; address: string; role: string }
+  ) {
+    const index = this.users.findIndex((user) => user.username === username);
+    if (index !== -1) {
+      this.users[index] = {
+        ...this.users[index],
+        name: updatedData.name,
+        address: updatedData.address,
+        role: updatedData.role,
+      };
+      this.saveUsers();
+    }
+  }
+  getAllPermissions() {
+    return [...this.availablePermissions];
+  }
+
+  getRolePermissions(role: string) {
+    return [...(this.permissions[role] || [])];
+  }
+
+  assignPermission(role: string, permission: string) {
+    if (!this.permissions[role]) {
+      this.permissions[role] = [];
+    }
+    if (!this.permissions[role].includes(permission) && this.availablePermissions.includes(permission)) {
+      this.permissions[role].push(permission);
+      this.savePermissions();
+    }
+  }
+
+  unassignPermission(role: string, permission: string) {
+    if (this.permissions[role]) {
+      this.permissions[role] = this.permissions[role].filter(p => p !== permission);
+      this.savePermissions();
+    }
+  }
+
+  savePermissions() {
+    localStorage.setItem('permissions', JSON.stringify(this.permissions));
   }
 }

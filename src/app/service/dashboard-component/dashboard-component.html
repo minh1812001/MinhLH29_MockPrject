@@ -3,13 +3,18 @@
   <p>Bạn đã đăng nhập thành công.</p>
 
   <button *ngIf="role === 'user' || role === 'admin'" (click)="onViewProfileList()" class="form-container button">
-     {{ showUserList ? 'Ẩn  Danh Sách Người Dùng' : 'Xem Danh Sách Người Dùng' }}
-    
+    {{ showUserList ? 'Ẩn Danh Sách Người Dùng' : 'Xem Danh Sách Người Dùng' }}
   </button>
 
   <button *ngIf="role === 'user' || role === 'admin'" (click)="onViewProfile()" class="form-container button">
     {{ showProfile ? 'Ẩn Hồ sơ' : 'Xem Hồ sơ' }}
   </button>
+
+  <button *ngIf="role === 'admin'" (click)="onViewPermissions()" class="form-container button manage-permissions-button">
+    {{ showPermissions ? 'Ẩn Quản Lý Quyền' : 'Quản Lý Quyền' }}
+  </button>
+
+  <button (click)="onLogout()" class="form-container button logout-button">Đăng Xuất</button>
 
   <app-view-profile-component *ngIf="showProfile" [username]="username" [role]="role" [name]="name"
     [address]="address" [showProfile]="showProfile" (profileUpdated)="onProfileUpdated($event)"
@@ -18,4 +23,6 @@
   <app-user-list-component *ngIf="showUserList" [showUserList]="showUserList"
     (onCloseListUser)="onCloseListUser()">
   </app-user-list-component>
+  <app-permission-manager-component *ngIf="showPermissions" (closePermissions)="onClosePermissions()">
+  </app-permission-manager-component>
 </div>

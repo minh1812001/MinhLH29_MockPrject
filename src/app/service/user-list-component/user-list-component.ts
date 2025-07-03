@@ -16,7 +16,8 @@ export class UserListComponent implements OnInit {
   selectedUser: any;
   currentUsername: string = '';
   role: string = '';
-
+  editingRole: boolean = false;
+  newRole: string = '';
   @Input() showUserList!: boolean;
   @Output() onCloseListUser = new EventEmitter<void>(); // Sự kiện đóng component
   constructor(
@@ -33,24 +34,61 @@ export class UserListComponent implements OnInit {
   }
 
   loadUsers() {
-    const allUsers = this.mockDataService.getUsers();
-    if (this.role === 'user') {
-     // Nếu là user, chỉ hiển thị thông tin của chính mình
-      const currentUser = allUsers.find(
-        (user) => user.role === this.role
-      );
-      this.users = currentUser ? [currentUser] : [];
-     // this.users = allUsers.filter((user) => user.role === this.role);
-    } else if (this.role === 'admin') {
-      // Nếu là admin, hiển thị tất cả người dùng
-      this.users = [...allUsers];
-    }
+  const allUsers = this.mockDataService.getUsers();
+  if (this.role === 'user') {
+    const currentUser = allUsers.find(
+      (user) => user.username === this.currentUsername
+    );
+    this.users = currentUser ? [currentUser] : [];
+  } else if (this.role === 'admin') {
+    this.users = [...allUsers];
   }
+}
 
   selectUser(user: any) {
     this.selectedUser = user;
   }
-
+  toggleEditRole(user: any, event: Event) {
+    event.stopPropagation();
+    if (this.role !== 'admin') {
+      alert('Bạn không có quyền sửa vai trò người dùng!');
+      return;
+    }
+    if (user.username === this.currentUsername) {
+      alert('Bạn không thể sửa vai trò của chính mình!');
+      return;
+    }
+    if (this.editingRole && this.selectedUser?.username === user.username) {
+      // Save the role change
+      if (this.newRole && this.newRole !== user.role) {
+        this.mockDataService.updateUser(user.username, {
+          name: user.name,
+          address: user.address,
+          role: this.newRole,
+        });
+        // Update localStorage if the current user is being edited
+        const currentUser = JSON.parse(
+          localStorage.getItem('currentUser') || '{}'
+        );
+        if (currentUser.username === user.username) {
+          currentUser.role = this.newRole;
+          currentUser.permissions = this.mockDataService.getPermissions(
+            this.newRole
+          );
+          localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        }
+        this.loadUsers();
+      }
+      this.editingRole = false;
+    } else {
+      this.selectedUser = user;
+      this.newRole = user.role;
+      this.editingRole = true;
+    }
+  }
+  onRoleChange(user: any) {
+    // Optional: Can be used for additional logic when role changes in the dropdown
+  }
   removeUser(user: any, event: Event) {
     event.stopPropagation();
     if (this.role !== 'admin') {
@@ -66,6 +104,9 @@ export class UserListComponent implements OnInit {
       this.loadUsers();
       this.selectedUser = null;
     }
+  }
+  managePermissions() {
+    this.router.navigate(['/permissions']);
   }
   goBack() {
     this.onCloseListUser.emit(); // Phát sự kiện để đóng component

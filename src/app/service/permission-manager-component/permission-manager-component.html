@@ -1,0 +1,39 @@
+<div class="form-container">
+    <h2>Quản Lý Quyền</h2>
+    <div>
+        <h3>Danh Sách Quyền</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Vai trò</th>
+                    <th>Quyền</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let role of roles">
+                    <td>{{ role }}</td>
+                    <td>{{ permissions[role].join(', ') || 'Không có quyền' }}</td>
+                    <td>
+                        <button (click)="startAssignPermission(role)" class="assign-button">Gán Quyền</button>
+                        <button *ngFor="let permission of permissions[role]"
+                            (click)="unassignPermission(role, permission)" class="cancel-button">Xóa {{ permission
+                            }}</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="showAssignForm">
+        <h3>Gán Quyền cho {{ selectedRole }}</h3>
+        <form (ngSubmit)="assignPermission()">
+            <label>Chọn Quyền:</label>
+            <select [(ngModel)]="selectedPermission" name="permission" required>
+                <option *ngFor="let permission of availablePermissions" [value]="permission">{{ permission }}</option>
+            </select>
+            <button type="submit">Gán</button>
+            <button type="button" (click)="cancelAssign()">Hủy</button>
+        </form>
+    </div>
+    <button (click)="goBack()">Quay lại</button>
+</div>

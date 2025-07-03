@@ -1,5 +1,7 @@
 <div class="form-container">
   <h2>Danh Sách Người Dùng</h2>
+  <button *ngIf="role === 'admin'" (click)="managePermissions()" class="manage-permissions-button">Quản Lý
+    Quyền</button>
   <table>
     <thead>
       <tr>
@@ -13,10 +15,20 @@
     <tbody>
       <tr *ngFor="let user of users" (click)="selectUser(user)" [class.selected]="user === selectedUser">
         <td>{{ user.username }}</td>
-        <td>{{ user.role }}</td>
+        <td>
+          <span *ngIf="!editingRole || selectedUser?.username !== user.username">{{ user.role }}</span>
+          <select *ngIf="editingRole && selectedUser?.username === user.username" [(ngModel)]="newRole"
+            (ngModelChange)="onRoleChange(user)">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+        </td>
         <td>{{ user.name }}</td>
         <td>{{ user.address }}</td>
         <td>
+          <button *ngIf="role === 'admin'" (click)="toggleEditRole(user, $event)" class="edit-button">
+            {{ editingRole && selectedUser?.username === user.username ? 'Lưu' : 'Sửa Vai trò' }}
+          </button>
           <button (click)="removeUser(user, $event)" class="cancel-button">Xóa</button>
         </td>
       </tr>

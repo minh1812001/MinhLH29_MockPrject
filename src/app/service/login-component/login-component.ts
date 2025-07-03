@@ -26,7 +26,6 @@ export class LoginComponent {
     const user = users.find(
       (u) => u.username === this.username && u.password === this.password
     );
-
     if (user) {
       const permissions = this.mockDataService.getPermissions(user.role);
       const userData = {
